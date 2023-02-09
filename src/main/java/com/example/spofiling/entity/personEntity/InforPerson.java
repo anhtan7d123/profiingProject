@@ -14,6 +14,7 @@ import java.util.Collection;
 @Table(name = "information_person")
 public class InforPerson {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer personId;
 
     private String personName;
