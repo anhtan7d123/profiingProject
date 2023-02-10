@@ -2,6 +2,8 @@ package com.example.spofiling.entity.personEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -16,7 +18,11 @@ public class Email {
 
     private String emailDetail;
 
-    @ManyToOne
+    @ManyToOne(optional=false)
     @JoinColumn(name = "person_id")
     private InforPerson inforPerson;
+
+    public Email() {
+
+    }
 }

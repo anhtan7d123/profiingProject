@@ -26,8 +26,9 @@ public class ItemInfor {
 
     private String itemColor;
 
-    @ManyToMany(mappedBy = "items")
-    private Collection<InforPerson> itemOwners;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private InforPerson itemOwner;
 
     @OneToMany(mappedBy = "itemInfor")
     private Collection<ItemRecentLocation> itemRecentLocations;

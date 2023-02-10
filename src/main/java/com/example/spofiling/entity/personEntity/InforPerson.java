@@ -2,15 +2,24 @@ package com.example.spofiling.entity.personEntity;
 
 import com.example.spofiling.entity.itemEntity.ItemInfor;
 import com.example.spofiling.entity.vehicleEntity.VehicleInfor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "information_person")
 public class InforPerson {
     @Id
@@ -19,34 +28,43 @@ public class InforPerson {
 
     private String personName;
 
-    @OneToMany(mappedBy = "inforPerson")
-    private Collection<Phone> phones;
+    @OneToMany(mappedBy= "inforPerson")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Phone> phones;
+
+    @OneToMany(mappedBy= "inforPerson")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Email> emails;
 
     @OneToMany(mappedBy = "inforPerson")
-    private Collection<Email> emails;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Image> images;
 
     @OneToMany(mappedBy = "inforPerson")
-    private Collection<Image> images;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Location> locations;
 
     @OneToMany(mappedBy = "inforPerson")
-    private Collection<Location> locations;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<WorkExperience> workExperiences;
 
-    @OneToMany(mappedBy = "inforPerson")
-    private Collection<WorkExperience> workExperiences;
+    @OneToMany(mappedBy = "vehicleOwner")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<VehicleInfor> vehicles;
 
-    @ManyToMany
-    @JoinTable(name = "person_vehicle",
-            joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
-    private  Collection<VehicleInfor> vehicles;
-
-    @ManyToMany
-    @JoinTable(name = "person_item",
-            joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private  Collection<ItemInfor> items;
+    @OneToMany(mappedBy = "itemOwner")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private  List<ItemInfor> items;
 
     private Integer levelPopular;
 
     public InforPerson() {
 
+    }
+
+    public InforPerson(String personName, List<Phone> phones, Integer levelPopular) {
+        this.personName = personName;
+        this.phones = phones;
+        this.levelPopular = levelPopular;
     }
 }

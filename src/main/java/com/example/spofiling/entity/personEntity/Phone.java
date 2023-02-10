@@ -1,13 +1,18 @@
 package com.example.spofiling.entity.personEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "phone_list")
 public class Phone {
     @Id
@@ -18,8 +23,8 @@ public class Phone {
 
     private String phoneDescribe;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
+    @ManyToOne(optional=false)
+    @JoinColumn(name = "inforPerson_id")
     private InforPerson inforPerson;
 
     public Phone() {

@@ -21,4 +21,8 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private InforPerson inforPerson;
+
+    public Image() {
+
+    }
 }

@@ -37,7 +37,18 @@ public class PersonController {
 
     @GetMapping("/get-all")
     public ResponseEntity<List<InforPerson>> getAllPersonInfor(){
-        return new ResponseEntity<>(inforPersonRepo.findAllOrderByLevelPopular(0), HttpStatus.OK);
+//        List<InforPerson> list = inforPersonRepo.findAllOrderByLevelPopular(0);
+        List<InforPerson> list = new ArrayList<>();
+        inforPersonRepo.findAll().forEach(list::add);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    //Hien thi profile theo muc do quan t
+    @GetMapping("/get-all/get-by-level")
+    public ResponseEntity<List<InforPerson>> getAllPersonInforByLevel(){
+        List<InforPerson> list = new ArrayList<>();
+        inforPersonRepo.findAllOrderByLevelPopular().forEach(list::add);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

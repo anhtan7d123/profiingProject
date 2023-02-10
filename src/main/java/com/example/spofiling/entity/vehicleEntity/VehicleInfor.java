@@ -1,6 +1,7 @@
 package com.example.spofiling.entity.vehicleEntity;
 
 import com.example.spofiling.entity.personEntity.InforPerson;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,8 +27,9 @@ public class VehicleInfor {
 
     private String vehicleColor;
 
-    @ManyToMany(mappedBy = "vehicles")
-    private Collection<InforPerson> vehicleOwners;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private InforPerson vehicleOwner;
 
     @OneToMany(mappedBy = "vehicleInfor")
     private Collection<VehicleRecentLocation> vehicleRecentLocations;
