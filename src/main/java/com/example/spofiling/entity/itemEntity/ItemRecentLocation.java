@@ -1,5 +1,6 @@
 package com.example.spofiling.entity.itemEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class ItemRecentLocation {
     private Date recentItemEnd;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "item_id")
     private ItemInfor itemInfor;
 

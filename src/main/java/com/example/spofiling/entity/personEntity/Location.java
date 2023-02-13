@@ -1,5 +1,6 @@
 package com.example.spofiling.entity.personEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Location {
     private String localtionName;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "person_id")
     private InforPerson inforPerson;
 

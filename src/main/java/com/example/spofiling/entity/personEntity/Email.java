@@ -1,5 +1,6 @@
 package com.example.spofiling.entity.personEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
@@ -18,7 +19,8 @@ public class Email {
 
     private String emailDetail;
 
-    @ManyToOne(optional=false)
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "person_id")
     private InforPerson inforPerson;
 

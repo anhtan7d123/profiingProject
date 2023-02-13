@@ -1,5 +1,6 @@
 package com.example.spofiling.entity.personEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Image {
     private String imageType;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "person_id")
     private InforPerson inforPerson;
 

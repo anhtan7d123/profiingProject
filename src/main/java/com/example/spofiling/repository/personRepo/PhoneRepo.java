@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PhoneRepo extends JpaRepository<Phone, Integer> {
+    Phone findByPhoneNumber(String phoneNumber);
+
+    Phone findByPhoneId(Integer id);
+
 }

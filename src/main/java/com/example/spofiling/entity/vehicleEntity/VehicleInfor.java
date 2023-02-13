@@ -2,6 +2,7 @@ package com.example.spofiling.entity.vehicleEntity;
 
 import com.example.spofiling.entity.personEntity.InforPerson;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -28,6 +29,7 @@ public class VehicleInfor {
     private String vehicleColor;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "person_id")
     private InforPerson vehicleOwner;
 

@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -23,7 +24,8 @@ public class Phone {
 
     private String phoneDescribe;
 
-    @ManyToOne(optional=false)
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "inforPerson_id")
     private InforPerson inforPerson;
 

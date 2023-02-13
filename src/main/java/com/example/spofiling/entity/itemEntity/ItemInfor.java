@@ -1,6 +1,7 @@
 package com.example.spofiling.entity.itemEntity;
 
 import com.example.spofiling.entity.personEntity.InforPerson;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class ItemInfor {
     private String itemColor;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "person_id")
     private InforPerson itemOwner;
 
