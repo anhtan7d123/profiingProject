@@ -1,7 +1,6 @@
 package com.example.spofiling.entity.vehicleEntity;
 
-import com.example.spofiling.entity.personEntity.InforPerson;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.spofiling.entity.personEntity.PersonInfor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,9 +30,10 @@ public class VehicleInfor {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person_id")
-    private InforPerson vehicleOwner;
+    private PersonInfor vehicleOwner;
 
     @OneToMany(mappedBy = "vehicleInfor")
+    @JsonIgnore
     private Collection<VehicleRecentLocation> vehicleRecentLocations;
 
     public VehicleInfor() {

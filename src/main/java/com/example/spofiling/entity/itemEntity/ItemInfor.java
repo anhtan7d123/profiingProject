@@ -1,6 +1,6 @@
 package com.example.spofiling.entity.itemEntity;
 
-import com.example.spofiling.entity.personEntity.InforPerson;
+import com.example.spofiling.entity.personEntity.PersonInfor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class ItemInfor {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person_id")
-    private InforPerson itemOwner;
+    private PersonInfor itemOwner;
 
     @OneToMany(mappedBy = "itemInfor")
     private Collection<ItemRecentLocation> itemRecentLocations;

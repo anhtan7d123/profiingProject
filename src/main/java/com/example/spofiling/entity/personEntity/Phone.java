@@ -1,15 +1,10 @@
 package com.example.spofiling.entity.personEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Getter
@@ -22,12 +17,16 @@ public class Phone {
 
     private String phoneNumber;
 
-    private String phoneDescribe;
+    private String phoneNote;
+
+    private String phoneType;
+
+    private Integer phoneRate;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "inforPerson_id")
-    private InforPerson inforPerson;
+    private PersonInfor personInfor;
 
     public Phone() {
 

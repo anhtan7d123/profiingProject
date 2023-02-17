@@ -20,7 +20,7 @@ public class Location {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person_id")
-    private InforPerson inforPerson;
+    private PersonInfor personInfor;
 
     public Location() {
 

@@ -19,10 +19,12 @@ public class Image {
 
     private String imageType;
 
+    private String imageLink;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person_id")
-    private InforPerson inforPerson;
+    private PersonInfor personInfor;
 
     public Image() {
 

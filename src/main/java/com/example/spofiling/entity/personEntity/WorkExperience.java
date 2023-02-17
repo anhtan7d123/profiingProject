@@ -25,7 +25,7 @@ public class WorkExperience {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private InforPerson inforPerson;
+    private PersonInfor personInfor;
 
     public WorkExperience() {
 

@@ -1,8 +1,6 @@
 package com.example.spofiling.repository.personRepo;
 
-import com.example.spofiling.entity.itemEntity.ItemInfor;
 import com.example.spofiling.entity.personEntity.*;
-import com.example.spofiling.entity.vehicleEntity.VehicleInfor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,11 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InforPersonRepo extends JpaRepository<InforPerson, Integer> {
-    InforPerson findByPersonName(String name);
+public interface PersonInforRepo extends JpaRepository<PersonInfor, Integer> {
+    PersonInfor findByPersonName(String name);
 
-    @Query("select i from InforPerson i order by i.levelPopular")
-    List<InforPerson> findAllOrderByLevelPopular();
+    PersonInfor findByPersonId(Integer id);
+
+    @Query("select i from PersonInfor i order by i.levelPopular")
+    List<PersonInfor> findAllOrderByLevelPopular();
+
 
 
 //    List<InforPerson> findByPersonIdOrPersonNameOrPhonesContainingOrEmailsContainingOrImagesContainingOrLocationsContainingOrWorkExperiencesContainingOrVehiclesContainingOrImagesContainingOrLevelPopular(
