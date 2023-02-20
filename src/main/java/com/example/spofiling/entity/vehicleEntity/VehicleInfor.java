@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,7 +35,7 @@ public class VehicleInfor {
 
     @OneToMany(mappedBy = "vehicleInfor")
     @JsonIgnore
-    private Collection<VehicleRecentLocation> vehicleRecentLocations;
+    private List<VehicleRecentLocation> vehicleRecentLocations;
 
     public VehicleInfor() {
 

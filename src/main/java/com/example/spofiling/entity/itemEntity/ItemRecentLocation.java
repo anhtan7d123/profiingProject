@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,10 +23,9 @@ public class ItemRecentLocation {
 
     private Date recentItemEnd;
 
-    @ManyToOne
+    @ManyToMany(mappedBy = "itemRecentLocations")
     @JsonIgnore
-    @JoinColumn(name = "item_id")
-    private ItemInfor itemInfor;
+    private List<ItemInfor> itemInfors;
 
     public ItemRecentLocation() {
 

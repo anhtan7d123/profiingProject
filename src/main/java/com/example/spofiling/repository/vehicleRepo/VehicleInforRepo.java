@@ -20,5 +20,5 @@ public interface VehicleInforRepo extends JpaRepository<VehicleInfor, Integer> {
             "or v.vehicleLabel = ?1 " +
             "or v.vehicleSize = ?1 " +
             "or v.vehicleColor = ?1")
-    List<VehicleInfor> findByAllProperties(String keywork);
+    List<VehicleInfor> findByAllProperties(String keyword);
 }

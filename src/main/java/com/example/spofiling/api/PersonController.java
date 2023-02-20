@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -80,7 +77,7 @@ public class PersonController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         else {
-            boolean checkRequest = true;
+//            boolean checkRequest = true;
             log.info("Tên chưa tồn tại");
             Map<String, String> newBody = new LinkedHashMap<>();
             personInforRepo.save(personInfor);
@@ -102,9 +99,10 @@ public class PersonController {
                             phoneRepo.save(checkPhone);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("Error: ", "phoneId: " + checkPhone.getPhoneId() + " already owned");
                         }
+                    }else {
+                        newBody.put("Error: ", "phoneId: " + phone.getPhoneId() + " does not exist");
                     }
                 }
             }
@@ -118,9 +116,10 @@ public class PersonController {
                             emailRepo.save(checkEmail);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("Error: ", "emailId: " + checkEmail.getEmailId() + " already owned");
                         }
+                    }else {
+                        newBody.put("Error: ", "emailId: " + email.getEmailId() + " does not exist");
                     }
                 }
             }
@@ -134,9 +133,10 @@ public class PersonController {
                             imageRepo.save(checkImage);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("Error: ", "imageId: " + checkImage.getImageId() + " already owned");
                         }
+                    }else {
+                        newBody.put("Error: ", "imageId: " + image.getImageId() + " already owned");
                     }
                 }
             }
@@ -150,9 +150,10 @@ public class PersonController {
                             locationRepo.save(checkLocation);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("Error: ", "locationId: " + checkLocation.getLocationId() + " already owned");
                         }
+                    }else {
+                        newBody.put("Error: ", "locationId: " + location.getLocationId() + " already owned");
                     }
                 }
             }
@@ -166,9 +167,10 @@ public class PersonController {
                             workExRepo.save(checkWorkExperience);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("Error: ", "WorkId: " + checkWorkExperience.getWorkId() + " already owned");
                         }
+                    }else {
+                        newBody.put("Error: ", "WorkId: " + workExperience.getWorkId() + " already owned");
                     }
                 }
             }
@@ -184,15 +186,16 @@ public class PersonController {
                             vehicleInforRepo.save(checkVehicle);
                         }
                         else {
-                            checkRequest = false;
                             newBody.put("error: ", "vehicleId: " + checkVehicle.getVehicleId() + " already owned");
                         }
+                    }else {
+                        newBody.put("error: ", "vehicleId: " + vehicleInfor.getVehicleId() + " already owned");
                     }
                 }
             }
-            if (checkRequest == true){
-                PersonInfor newPer = personInforRepo.findByPersonId(personInfor.getPersonId());
-                return new ResponseEntity<>(newPer, HttpStatus.CREATED);
+            if (newBody.isEmpty()){
+                PersonInfor newPersonInfor = personInforRepo.findByPersonId(personInfor.getPersonId());
+                return new ResponseEntity<>(newPersonInfor, HttpStatus.CREATED);
             }
             else {
                 personInforRepo.deleteById(personInfor.getPersonId());
@@ -217,6 +220,10 @@ public class PersonController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+//    public ResponseEntity<?> getPersonByAllPro(String keyword){
+//
+//    }
+
     //Hien thi danh sach noi lam viec theo id person
     @GetMapping("/get-work-by-id/{id}")
     public ResponseEntity<?> getWorkExperiencesById(@PathVariable Integer id){
@@ -227,6 +234,56 @@ public class PersonController {
             return new ResponseEntity<>(listWork, HttpStatus.OK);
         }else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("get-contact-by-id/{id}")
+    public ResponseEntity<?> getContactsById(@PathVariable Integer id){
+        PersonInfor checkPer = personInforRepo.findByPersonId(id);
+        if (checkPer != null){
+            List<Phone> contacts = new ArrayList<>();
+            checkPer.getPhones().forEach(contacts::add);
+            return new ResponseEntity<>(contacts, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //lay danh sach danh ba chia theo 2 loai potential va verified
+    @GetMapping("get-contact-for-rate/{id}")
+    public ResponseEntity<?> getContactsForRate(@PathVariable Integer id){
+        PersonInfor checkPer = personInforRepo.findByPersonId(id);
+        if (checkPer != null){
+            List<Phone> defaultContacts = checkPer.getPhones();
+            List<Phone> verifiedContacts = new ArrayList<>();
+            List<Phone> potentialContacts = new ArrayList<>();
+            for (Phone phone : defaultContacts){
+                if (phone.getPhoneRate() == 100){
+                    verifiedContacts.add(phone);
+                }
+                else {
+                    potentialContacts.add(phone);
+                }
+            }
+            Map<String, Object> newBody = new LinkedHashMap<>();
+            newBody.put("potential contacts: ", potentialContacts);
+            newBody.put("verified contacts: ", verifiedContacts);
+            return new ResponseEntity<>(newBody, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-location-by-id/{id}")
+    public ResponseEntity<?> getLocationById(@PathVariable Integer id){
+        PersonInfor checkPer = personInforRepo.findByPersonId(id);
+        if (checkPer != null){
+            List<Location> locations = new ArrayList<>();
+            checkPer.getLocations().forEach(locations::add);
+            return new ResponseEntity<>(locations, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -2,8 +2,10 @@ package com.example.spofiling.api;
 
 import com.example.spofiling.entity.personEntity.PersonInfor;
 import com.example.spofiling.entity.vehicleEntity.VehicleInfor;
+import com.example.spofiling.entity.vehicleEntity.VehicleRecentLocation;
 import com.example.spofiling.repository.personRepo.PersonInforRepo;
 import com.example.spofiling.repository.vehicleRepo.VehicleInforRepo;
+import com.example.spofiling.repository.vehicleRepo.VehicleRecentRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.List;
 public class VehicleController {
 
     private final VehicleInforRepo vehicleInforRepo;
+
+    private final VehicleRecentRepo vehicleRecentRepo;
 
 //    @PostMapping("/task/createTask")
 //    public ResponseEntity<?> requestTask(@RequestBody Task pTask) {
@@ -59,10 +63,10 @@ public class VehicleController {
         }
     }
 
-    @GetMapping("/get-by-keywork/{keywork}")
-    public ResponseEntity<?> getVehicleByAllPro(@PathVariable String keywork){
+    @GetMapping("/get-by-keywork/{keyword}")
+    public ResponseEntity<?> getVehicleByAllPro(@PathVariable String keyword){
         List<VehicleInfor> vehicleInfors = new ArrayList<>();
-        vehicleInforRepo.findByAllProperties(keywork).forEach(vehicleInfors::add);
+        vehicleInforRepo.findByAllProperties(keyword).forEach(vehicleInfors::add);
         return new ResponseEntity<>(vehicleInfors, HttpStatus.OK);
     }
 }

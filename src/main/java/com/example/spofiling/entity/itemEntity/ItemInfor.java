@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,8 +33,11 @@ public class ItemInfor {
     @JoinColumn(name = "person_id")
     private PersonInfor itemOwner;
 
-    @OneToMany(mappedBy = "itemInfor")
-    private Collection<ItemRecentLocation> itemRecentLocations;
+    @ManyToMany
+    @JoinTable(name = "item_location",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private List<ItemRecentLocation> itemRecentLocations;
 
     public ItemInfor() {
 

@@ -16,6 +16,10 @@ public class Location {
     private Integer locationId;
 
     private String localtionName;
+    //20.98339503454848, 105.81614662970462
+    private Double latitude;
+
+    private Double longitude;
 
     @ManyToOne
     @JsonIgnore

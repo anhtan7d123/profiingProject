@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VehicleRecentRepo extends JpaRepository<VehicleRecentLocation, Integer> {
+    VehicleRecentLocation findByRecentLocationId(Integer recentLocation);
+
+    VehicleRecentLocation findByRecentLocationName(String recentLocationName);
 }

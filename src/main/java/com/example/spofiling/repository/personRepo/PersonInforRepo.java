@@ -16,6 +16,7 @@ public interface PersonInforRepo extends JpaRepository<PersonInfor, Integer> {
     @Query("select i from PersonInfor i order by i.levelPopular")
     List<PersonInfor> findAllOrderByLevelPopular();
 
+
     void deleteByPersonId(Integer personId);
 
 
