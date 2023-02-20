@@ -46,11 +46,11 @@ public class PersonInfor {
 //    inverseJoinColumns = @JoinColumn)
     @OneToMany(mappedBy = "vehicleOwner")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<VehicleInfor> vehicles;
+    private List<VehicleInfor> vehicleInfors;
 
     @OneToMany(mappedBy = "itemOwner")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private  List<ItemInfor> items;
+    private  List<ItemInfor> itemInfors;
 
     private Integer levelPopular;
 

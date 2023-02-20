@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkExRepo extends JpaRepository<WorkExperience, Integer> {
+    WorkExperience findByWorkId(Integer workExId);
 }
