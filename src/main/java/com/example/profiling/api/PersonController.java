@@ -11,14 +11,21 @@ import com.example.profiling.repository.socialRepo.SocialRepo;
 import com.example.profiling.repository.vehicleRepo.VehicleInforRepo;
 import com.example.profiling.service.personService.PersonInforService;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 
@@ -58,6 +65,38 @@ public class PersonController {
         }
     }
 
+    @PostMapping("/create-image")
+    public ResponseEntity<?> createImage(@RequestParam("file") MultipartFile file){
+        try {
+            Image image = new Image();
+            image.setImageType(file.getOriginalFilename());
+            image.setImageType(file.getContentType());
+            image.setImageByte(file.getBytes());
+            Image savedImage = imageRepo.save(image);
+            return ResponseEntity.ok(savedImage);
+        }catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/get-image-by-id/{id}")
+    public ResponseEntity<?> getImageById(@PathVariable Integer id) throws IOException {
+        PersonInfor checKPer = personInforRepo.findByPersonId(id);
+        if (checKPer != null){
+           List<Image> imageList = checKPer.getImages();
+           List<BufferedImage> imageGenList = new ArrayList<>();
+           for (Image image : imageList){
+               byte[] bytes = image.getImageByte();
+               InputStream inputStream = new ByteArrayInputStream(bytes);
+               BufferedImage genImage = ImageIO.read(inputStream);
+               imageGenList.add(genImage);
+           }
+           return new ResponseEntity<>(imageGenList, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
     //Them sdt
     @PostMapping("/add-phone")
     public ResponseEntity<?> addPhoneToPerson(@RequestBody PhoneToPerForm phoneForm){
@@ -258,6 +297,14 @@ public class PersonController {
         personInforRepo.findAllOrderByLevelPopular().forEach(list::add);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+//    @GetMapping("/get-image-by-id")
+//    public ResponseEntity<?>  getImageById(@RequestParam Integer personId, @RequestParam ){
+//        PersonInfor checkPer = personInforRepo.findByPersonId(id);
+//        if (checkPer != null){
+//
+//        }
+//    }
 
     //Hien thi danh sach noi lam viec theo id person
     @GetMapping("/get-work-by-id/{id}")

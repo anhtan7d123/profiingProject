@@ -34,7 +34,6 @@ public class VehicleController {
     }
 
 
-
     @GetMapping("/get-by-keywork/{keyword}")
     public ResponseEntity<?> getVehicleByAllPro(@PathVariable String keyword){
         List<VehicleInfor> vehicleInfors = new ArrayList<>();

@@ -19,7 +19,8 @@ public class Image {
 
     private String imageType;
 
-    private String imageLink;
+    @Lob
+    private byte[] imageByte;
 
     @ManyToOne
     @JsonIgnore
